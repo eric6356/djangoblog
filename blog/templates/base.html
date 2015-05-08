@@ -27,29 +27,29 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{% url "blog.views.index" %}">Home</a>
+            <a class="navbar-brand" href="{% url "index" %}">Home</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li class="{% active_page request '/tech'%}" >
-                <a href="{% url 'blog.views.tech' %}">Tech</a></li>
+                <a href="{% url 'tech' %}">Tech</a></li>
                 <li class="{% active_page request '/life'%}" >
-                <a href="{% url 'blog.views.life' %}">Life</a></li>
+                <a href="{% url 'life' %}">Life</a></li>
             </ul>
-{#            <ul class="nav navbar-nav navbar-right">#}
-{#                {% if current_user.is_authenticated() %}#}
-{#                <li class="dropdown">#}
-{#                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">#}
-{#                        Account <b class="caret"></b>#}
-{#                    </a>#}
-{#                    <ul class="dropdown-menu">#}
-{#                        <li><a href="{{ url_for('auth.logout')+"?next="+request.path }}">Log Out</a></li>#}
-{#                    </ul>#}
-{#                </li>#}
-{#                {% else %}#}
-{#                <li><a href="{{ url_for('auth.login')+"?next="+request.path }}">Log In</a></li>#}
-{#                {% endif %}#}
-{#            </ul>#}
+            <ul class="nav navbar-nav navbar-right">
+                {% if user.is_authenticated %}
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        Account <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url 'logout' %}">Log Out</a></li>
+                    </ul>
+                </li>
+                {% else %}
+                <li><a href="{% url 'login' %}">Log In</a></li>
+                {% endif %}
+            </ul>
         </div>
     </div>
 </div>
