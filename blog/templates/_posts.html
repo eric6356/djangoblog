@@ -1,0 +1,97 @@
+{% load humanize %}
+<ul class="posts">
+    {% for post in posts %}
+    <li class="post">
+        <div class="post-content">
+            <div class="post-title">
+                <div class="post-title-string">
+                    <a href="{% url 'post' post.id %}">
+                    {{ post.title }}
+                    </a>
+                </div>
+                <div class="post-title-tags">
+{#                    {% if post.tags %}#}
+{#                        {% for tag in post.tags %}#}
+{#                            <a href="{{ url_for('.tags', tag=tag) }}">#}
+{#                                <span class="label label-primary">{{ tag }}</span>#}
+{#                            </a>#}
+{#                        {% endfor %}#}
+{#                    {% endif %}#}
+                </div>
+            </div>
+
+            <div class="post-date">
+                {{ post.gmt_create|date:"Y-m-d H:i," }}
+                {{ post.gmt_create|timesince }} ago
+            </div>
+            <div class="post-body">
+                {% if preview %}
+                    {% if post.body_preview %}
+                        {{ post.body_preview }}
+                    {% endif %}
+                {% elif post.body_html %}
+                    {{ post.body_html }}
+                {% else %}
+                    {{ post.body }}
+                {% endif %}
+            </div>
+{#            <div class="post-footer">#}
+{#                {% if preview %}#}
+{#                    <a href="{{ url_for('.post', id=post.id) }}">#}
+{#                        <span class="label label-info">全文...</span>#}
+{#                    </a>#}
+{#                {% endif %}#}
+{#                {% if current_user.id == post.author.id or current_user.isAdmin %}#}
+{#                    <a href="{{ url_for('.edit', id=post.id) }}">#}
+{#                        <span class="label label-primary">Edit</span>#}
+{#                    </a>#}
+{#                {% endif %}#}
+{#            </div>#}
+{#            {% if not preview %}#}
+{#                <div class="post-comment">#}
+{#                <div class="post-comment-string">#}
+{#                    Comments#}
+{#                </div>#}
+{#                   {% for comment in post.comments recursive%}#}
+{#                       <div class="post-sub-comment">#}
+{#                       <div class="post-comment-author">{{ comment.author.username }}</div>#}
+{#                       <div class="post-comment-content">{{ comment.content }}</div>#}
+{#                       <div class="post-comment-date">#}
+{#                           {{ moment(comment.timestamp).format('YYYY-MM-DD HH:MM, ') }}#}
+{#                           {{ moment(comment.timestamp).fromNow(refresh=True) }}#}
+{#                           <a href="#nogo"><span class="label label-info" onclick="show_comment(this)">Reply</span></a>#}
+{#                           {% if current_user.id ==  comment.author.id or current_user.isAdmin%}#}
+{#                           <a href="#nogo"><span class="label label-warning" onclick="delete_comment(this, '{{ post.id }}', '{{ comment.id }}')">Delete</span></a>#}
+{#                           {% endif %}#}
+{#                       </div>#}
+{#                       <div class="post-comment-form" style="display: none">#}
+{#                           <form action="{{ url_for('api.comment') }}" method="post">#}
+{#                           <textarea class="form-control" rows="3" placeholder="说点什么吧……"></textarea>#}
+{#                           <div class="post-comment-form-btn-container">#}
+{#                               <a href="#nogo">#}
+{#                                   <span class="label label-primary" onclick="submit_comment(this, '{{ current_user.id }}', '{{ current_user.username|default("anonymous@hezj.xyz") }}', '{{ post.id }}', '{{ comment.id }}')">Submit</span>#}
+{#                               </a>#}
+{#                           </div>#}
+{#                           </form>#}
+{#                       </div>#}
+{#                       {% if comment.comments %}#}
+{#                           {{ loop(comment.comments) }}#}
+{#                       {% endif %}#}
+{#                       </div>#}
+{#                   {% endfor %}#}
+{#                    <div class="post-comment-form">#}
+{#                        <form action="{{ url_for('api.comment') }}" method="post">#}
+{#                            <textarea class="form-control" rows="3" placeholder="说点什么吧……"></textarea>#}
+{#                            <div class="post-comment-form-btn-container">#}
+{#                                <a href="#">#}
+{#                                    <span class="label label-primary" onclick="submit_comment(this, '{{ current_user.id }}', '{{ current_user.username|default('anonymous@hezj.xyz') }}','{{ post.id }}', '{{ post.id }}')">Submit</span>#}
+{#                                </a>#}
+{#                            </div>#}
+{#                        </form>#}
+{#                    </div>#}
+{#                </div>#}
+{#            {% endif %}#}
+        </div>
+    </li>
+    {% endfor %}
+</ul>

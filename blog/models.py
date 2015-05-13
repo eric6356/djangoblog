@@ -24,8 +24,8 @@ class Post(models.Model):
     gmt_create = models.DateTimeField(default=datetime.utcnow)
     gmt_modify = models.DateTimeField(default=datetime.utcnow)
     author = models.ForeignKey(User)
-    tags = models.ManyToManyField(Tag)
-    category = models.ForeignKey(Category)
+    tags = models.ManyToManyField(Tag, null=True)
+    category = models.ManyToManyField(Category, null=True)
 
     def __str__(self):
         return self.title

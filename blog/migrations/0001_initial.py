@@ -16,33 +16,33 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Category',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=30)),
             ],
         ),
         migrations.CreateModel(
             name='Post',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('title', models.TextField()),
                 ('body', models.TextField()),
                 ('status', models.IntegerField(default=1)),
                 ('gmt_create', models.DateTimeField(default=datetime.datetime.utcnow)),
                 ('gmt_modify', models.DateTimeField(default=datetime.datetime.utcnow)),
                 ('author', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
-                ('category', models.ForeignKey(to='blog.Category')),
+                ('category', models.ManyToManyField(to='blog.Category', null=True)),
             ],
         ),
         migrations.CreateModel(
             name='Tag',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=30)),
             ],
         ),
         migrations.AddField(
             model_name='post',
             name='tags',
-            field=models.ManyToManyField(to='blog.Tag'),
+            field=models.ManyToManyField(to='blog.Tag', null=True),
         ),
     ]

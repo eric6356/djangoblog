@@ -5,7 +5,9 @@
 <html>
 <head lang="en">
     <meta charset="utf-8">
-    <title>Blog</title>
+    <title>
+        {% block title %}Blog{% endblock %}
+    </title>
     <script src="//libs.baidu.com/jquery/2.0.3/jquery.min.js"></script>
     {% bootstrap_stylesheet_tag %}
     {% bootstrap_javascript_tag %}
